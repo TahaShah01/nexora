@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (driven by next-themes toggling `.dark` on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------- */
+/* Semantic color tokens — raw values live here, @theme below maps them   */
+/* into Tailwind utilities (bg-background, text-primary, border-border…) */
+/* ---------------------------------------------------------------------- */
+
+:root {
+  --background: #f7f6f3;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --elevated: #ffffff;
+  --border: #e7e3dd;
+
+  --primary: #b97a35;
+  --primary-hover: #c78a47;
+  --secondary: #6e7d57;
+
+  --success: #4caf6a;
+  --warning: #e2a93b;
+  --danger: #d35d5d;
+  --info: #5e8dd6;
+
+  --text-primary: #1f1f1f;
+  --text-secondary: #555555;
+  --text-muted: #8b8b8b;
+  --placeholder: #6e6b67;
+}
+
+.dark {
+  --background: #181716;
+  --surface: #21201f;
+  --card: #262524;
+  --elevated: #2d2c2b;
+  --border: #343332;
+
+  --primary: #b97a35;
+  --primary-hover: #c78a47;
+  --secondary: #6e7d57;
+
+  --success: #4caf6a;
+  --warning: #e2a93b;
+  --danger: #d35d5d;
+  --info: #5e8dd6;
+
+  --text-primary: #f5f4f2;
+  --text-secondary: #b5b2ac;
+  --text-muted: #8c8a86;
+  --placeholder: #6e6b67;
+}
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-placeholder: var(--placeholder);
+
+  /*
+   * Fixed (non-theme-reactive) dark text for use ON solid accent/semantic
+   * backgrounds — e.g. a primary button, a "NEW"/discount badge. White
+   * text fails WCAG AA against several of our brand colors at normal text
+   * sizes (measured, not assumed — see DESIGN_SYSTEM.md's contrast audit);
+   * this near-black passes cleanly against all of them. Deliberately NOT
+   * derived from --background, since that flips to a light cream in light
+   * mode and would break the pairing entirely.
+   */
+  --color-ink: #181716;
+
+  /*
+   * Type scale (12/14/16/18/20/24/30/36/48) and the 8pt spacing grid
+   * (4/8/12/16/20/24/32/40/48/64/80/96) are NOT overridden here — Tailwind
+   * v4's default text-* and spacing-* scales already resolve to exactly
+   * these px values (see docs/DESIGN_SYSTEM.md for the mapping table).
+   * Overriding them would be redundant and risks losing the arbitrary-value
+   * spacing Tailwind derives from the base --spacing multiplier.
+   */
+
+  --radius-btn: 12px;
+  --radius-card: 18px;
+  --radius-dialog: 20px;
+  --radius-input: 12px;
+  --radius-badge: 999px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 1px 0 rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.12), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.18), 0 4px 8px -4px rgb(0 0 0 / 0.08);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.5; /* 150% per DESIGN_SYSTEM.md */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
