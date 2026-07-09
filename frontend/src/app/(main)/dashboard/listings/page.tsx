@@ -142,17 +142,12 @@ export default function ListingsPage() {
     <div>
       <h1 className="mb-4 text-2xl font-bold text-text-primary">Listings</h1>
 
-      <Tabs defaultValue={user?.role === "provider" && user?.role !== "admin" ? "services" : "products"}>
+      <Tabs defaultValue="products">
         <TabsList>
-          {(user?.role === "seller" || user?.role === "admin") && (
-            <TabsTrigger value="products">Products</TabsTrigger>
-          )}
-          {(user?.role === "provider" || user?.role === "admin") && (
-            <TabsTrigger value="services">Services</TabsTrigger>
-          )}
+          <TabsTrigger value="products">Products</TabsTrigger>
+          <TabsTrigger value="services">Services</TabsTrigger>
         </TabsList>
 
-        {(user?.role === "seller" || user?.role === "admin") && (
         <TabsContent value="products">
           <div className="mb-3 flex justify-end">
             <Button
@@ -172,9 +167,7 @@ export default function ListingsPage() {
             emptyMessage="You haven't listed any products yet."
           />
         </TabsContent>
-        )}
 
-        {(user?.role === "provider" || user?.role === "admin") && (
         <TabsContent value="services">
           <div className="mb-3 flex justify-end">
             <Button
@@ -194,7 +187,6 @@ export default function ListingsPage() {
             emptyMessage="You haven't listed any services yet."
           />
         </TabsContent>
-        )}
       </Tabs>
 
       <ProductFormModal open={productModalOpen} onClose={() => setProductModalOpen(false)} product={editingProduct} />

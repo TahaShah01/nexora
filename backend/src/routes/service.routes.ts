@@ -17,7 +17,7 @@ import { createServiceSchema, listServicesQuerySchema, updateServiceSchema } fro
 const router = Router();
 
 router.get("/", validate(listServicesQuerySchema), listServices);
-router.post("/", requireAuth, requireRole("provider", "admin"), validate(createServiceSchema), createService);
+router.post("/", requireAuth, requireRole("seller", "provider", "admin"), validate(createServiceSchema), createService);
 router.get("/:slug", getServiceBySlug);
 router.get("/:slug/related", listRelatedServices);
 router.get("/:slug/availability", getAvailabilityForService);

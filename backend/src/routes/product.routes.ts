@@ -15,7 +15,7 @@ import { createProductSchema, listProductsQuerySchema, updateProductSchema } fro
 const router = Router();
 
 router.get("/", validate(listProductsQuerySchema), listProducts);
-router.post("/", requireAuth, requireRole("seller", "admin"), validate(createProductSchema), createProduct);
+router.post("/", requireAuth, requireRole("seller", "provider", "admin"), validate(createProductSchema), createProduct);
 router.get("/:slug", optionalAuth, getProductBySlug);
 router.get("/:slug/related", listRelatedProducts);
 router.patch("/:slug", requireAuth, validate(updateProductSchema), updateProduct);
